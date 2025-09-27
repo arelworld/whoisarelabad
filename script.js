@@ -658,4 +658,9 @@ ${project.link ? `Link: ${project.link}` : ''}
 
     // Set initial state - show home page
     sections.forEach(sec => sec.style.display = 'block');
+})
+$(document).ready(function () {
+    $(".sidebar-toggle").click(function () {
+        $(".sidebar").toggleClass("collapsed");
+    });
 });
