@@ -70,12 +70,6 @@ body {
 
 
 
-
-
-
-
-
-
 .logo {
     padding: 0 12px;
     margin-bottom: 20px;
@@ -1174,6 +1168,9 @@ body {
 .admin-panel.visible {
     display: block;
 }
+#adminToggle {
+    display: none;
+}
 
 
 .upload-form {
@@ -1228,10 +1225,8 @@ body {
 
 /* Category-specific colors */
 .category-web { border-left-color: #0c3470; }
-.category-database { border-left-color: #1db954; }
-.category-linux { border-left-color: #ff6b6b; }
 .category-design { border-left-color: #ffd93d; }
-.category-mobile { border-left-color: #6c5ce7; }
+.category-blog { border-left-color: #6c5ce7; }
 .category-other { border-left-color: #a29bfe; }
 
 /* Responsive Design */
@@ -1250,12 +1245,19 @@ body {
     
    
 }
+
 /* About Me Section */
 .about-me-grid {
     display: grid;
-    grid-template-columns: 1fr; /* Always 1 card per row */
+    grid-template-columns: repeat(2, 1fr); /* 2 cards in a row */
     gap: 25px;
     margin: 30px 0;
+}
+
+@media (max-width: 600px) {
+    .about-me-grid {
+        grid-template-columns: 1fr; /* 1 card per row */
+    }
 }
 
 .personal-card {
@@ -1341,48 +1343,92 @@ body {
     font-size: 14px;
     color: var(--text-secondary);
 }
-/* Sidebar toggle button */
-.sidebar-toggle {
-    display: none;
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    font-size: 22px;
-    background: var(--card-bg);
-    color: var(--text-primary);
-    border: none;
-    cursor: pointer;
-    padding: 8px 12px;
-    border-radius: 6px;
-    z-index: 1001;
-}
-
-/* Sidebar default */
 .sidebar {
-    width: 250px;
-    transition: transform 0.3s ease;
+  width: 240px;
+  height: 100vh;
+  background: rgba(18, 18, 18, 0.7);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255,255,255,0.1);
 }
 
-/* Collapsed sidebar */
+
+/* Collapsed (hidden) */
 .sidebar.collapsed {
     transform: translateX(-100%);
 }
 
-/* Adjust main content */
+/* Main content shift when sidebar is visible */
 .main-content {
-    margin-left: 250px;
+    margin-left: 240px;
     transition: margin-left 0.3s ease;
 }
-.sidebar.collapsed + .main-content {
+.sidebar.collapsed ~ .main-content {
     margin-left: 0;
 }
 
-/* Show toggle button on small screens */
-@media (max-width: 992px) {
-    .sidebar-toggle {
-        display: block;
+
+.sidebar-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: none !important;       /* remove background completely */
+    color: white;                    /* icon color */
+    border: none !important;           /* remove border completely */
+    padding: 5px !important;           /* minimal padding for touch area */
+    margin: 0 !important;              /* reset margin */
+    cursor: pointer;
+    font-size: 22px;                   /* size of hamburger icon */
+    z-index: 1100;
+    width: auto;                       /* prevent full-width stretching */
+    height: auto;                      /* keep only icon size */
+    line-height: 1;                    /* tight around icon */
+    display: inline-flex;              /* shrink-wrap around icon */
+    align-items: center;               /* center the lines vertically */
+    justify-content: center;
+    border-radius: 0 !important;       /* remove any rounded corners */
+    box-shadow: none !important;       /* remove any shadow */
+}
+
+/* Remove any hover background effects */
+.sidebar-toggle:hover {
+    background: none !important;
+    box-shadow: none !important;
+}
+
+/* Mobile menu button - also remove background */
+.mobile-menu-btn {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1000;
+    background: none !important;  /* remove background */
+    color: #0c3470;               /* use same color as toggle */
+    border: none !important;      /* remove border */
+    width: auto;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 22px;
+    padding: 5px;
+}
+
+/* Ensure no background on hover for mobile button too */
+.mobile-menu-btn:hover {
+    background: none !important;
+}
+
+
+/* Responsive (mobile) */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    .sidebar.active {
+        transform: translateX(0);
     }
     .main-content {
-        margin-left: 0; /* default without sidebar */
+        margin-left: 0;
     }
-    }
+}
