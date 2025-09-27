@@ -1250,19 +1250,12 @@ body {
     
    
 }
-
 /* About Me Section */
 .about-me-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 cards in a row */
+    grid-template-columns: 1fr; /* Always 1 card per row */
     gap: 25px;
     margin: 30px 0;
-}
-
-@media (max-width: 600px) {
-    .about-me-grid {
-        grid-template-columns: 1fr; /* 1 card per row */
-    }
 }
 
 .personal-card {
